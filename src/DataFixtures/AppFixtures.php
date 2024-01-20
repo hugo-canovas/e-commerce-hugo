@@ -16,13 +16,14 @@ class AppFixtures extends Fixture
         // on crée 4 auteurs avec noms et prénoms "aléatoires" en français
 
          for ($i = 0; $i < 4; $i++) {
-             $Vendeur = new Vendeur();
-             $Vendeur->setNom($faker->lastName);
-             $Vendeur->setPrenom($faker->firstName);
-             $Vendeur->setEmail($faker->email);
-             $Vendeur->setPassword($faker->password);
+             $vendeur = new Vendeur();
+             $vendeur->setNom($faker->lastName);
+             $vendeur->setPrenom($faker->firstName);
+             $vendeur->setEmail($faker->email);
+             $vendeur->setRoles(["ROLE_ADMIN"]);
+             $vendeur->setPassword($faker->password);
 
-             $manager->persist($Vendeur);
+             $manager->persist($vendeur);
          }
 
          for ($i = 0; $i < 4; $i++) {

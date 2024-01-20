@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <h1>Tous les produits</h1>
+
+    
+    <div class="d-flex flex-wrap gap-5">
+        {% for produit in produits %}
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{ produit.designation }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ produit.prixUnite }} €</h6>
+                <a href="{{ path('app_panier_ajout_rapide', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+                <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="card-link">Voir les détails</a>
+              </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+
+    {# <a href="{{ path('app_produit_new') }}">Create new</a> #}
+{% endblock %}

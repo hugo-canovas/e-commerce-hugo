@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+    <h1>Mon panier</h1>
+
+    {% if panier|length > 0%}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Produit</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Total</th>
+                <th sccope"col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% set total = null %}
+            {% for produit in panier %}
+                <tr>
+                    <td>
+                        {{ produit.produit.designation }}</br>
+
+                    </td>
+                    <td>
+                        {{ produit.produit.prixUnite}} €
+                    </td>
+                    <td>
+                        <a href="{{ path('app_panier_decrease', {id: produit.produit.id}) }}"><i class="fa-solid fa-minus"></i></a>
+                        {{ produit.quantite }}
+                        <a href="{{ path('app_panier_ajouter', {id: produit.produit.id}) }}"><i class="fa-solid fa-plus"></i></a>
+                    </td>
+                    <td>
+                        {{ (produit.produit.prixUnite * produit.quantite) }} €
+                    </td>
+                    <td>
+                        <a href="{{ path('app_panier_supprimer', {id: produit.produit.id}) }}"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                    </td>
+                </tr>
+            {% set total = total + (produit.produit.prixUnite * produit.quantite) %}
+            {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ total }} €</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex position-absolute end-0 me-5 gap-3">
+            <a href="{{ path('app_ligne_commande') }}"><button type="button" class="btn btn-success ">Valider ma commande</button></a>
+            <a href="{{ path('app_panier_remove') }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+        </div>
+    {% else %}
+        <p>Votre panier est vide</p>
+    {% endif %}
+    <a href="{{ path('app_produit_index') }}"><button type="button" class="btn btn-warning ms-5">Retour aux produits</button></a>
+{% endblock %}
