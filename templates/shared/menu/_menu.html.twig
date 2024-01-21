@@ -28,7 +28,7 @@
       <a href="{{ path('app_panier') }}"><i class="fa-solid fa-cart-arrow-down text-success fs-3 m-2"></i></a>
       <div class="d-flex gap-2">
       {% if app.user %}
-        <a href="#"><button class="btn btn-primary" type="button">Mon Compte</button></a>
+        <a href="{{ path('app_user_show', {id: app.user.id}) }}"><button class="btn btn-primary" type="button">Mon Compte</button></a>
         <a href="{{ path('app_logout') }}"><button class="btn btn-danger" type="button">Déconnexion</button></a>
       {% else %}
         <a href="{{ path('app_login') }}"><button class="btn btn-primary" type="button">Connexion</button></a>

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\User;
+use App\Entity\Vendeur;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +20,11 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+
+        if($this->getUser() instanceof Client){
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -52,6 +59,10 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+        if($this->getUser() != $user && $this->getUser() instanceof Client){
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
